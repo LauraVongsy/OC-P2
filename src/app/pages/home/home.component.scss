@@ -1,0 +1,31 @@
+@import 'src/styles.scss';
+
+.dashboard-title{
+    color:white;
+    background-color:$petrol;
+    width: 20%;
+    margin: auto;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: normal;
+}
+
+.subtitles-container{
+    width: 40%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 50px auto 50px auto;
+    .number-of-jos, .number-of-countries{
+        border: 1px solid $petrol;
+        border-radius: 5px;
+        padding:10px;
+        .results{
+            display: flex;
+            justify-content: center;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    }
+}

@@ -1,0 +1,6 @@
+<canvas class="pie-chart" baseChart
+  [type]="'pie'"
+  [data]="{ labels: pieChartLabels, datasets: pieChartDatasets }"
+  [options]="chartOptions"
+  (chartClick)="onChartClick($event)">
+</canvas> 

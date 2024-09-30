@@ -1,0 +1,18 @@
+<div class="country-page-container">
+<h1 class="country-title">{{olympicData?.country}}</h1>
+<div class="subtitles-container">
+<div class="number-of-entries">
+    <span>Number of entrie</span><br>
+    <span class="results">{{olympicData?.participations?.length}}</span>
+</div>
+<div class="number-of-medals">
+    <span>Total number of medals</span><br>
+    <span class="results">{{medalCount}}</span>
+</div>
+<div class="number-of-athletes">
+    <span>Total number of athletes</span><br>
+    <span class="results">{{athleteCount}}</span>
+</div>
+</div>
+<app-line-chart class="line-chart" [countryName]="countryName"></app-line-chart>
+</div>

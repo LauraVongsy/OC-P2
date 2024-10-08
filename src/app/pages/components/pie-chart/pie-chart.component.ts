@@ -6,6 +6,13 @@ import { Router } from '@angular/router';
 import { AgCharts } from 'ag-charts-angular';
 import { AgChartOptions } from 'ag-charts-community';
 
+
+interface ChartData {
+  countryName: string; 
+  countryMedals: number; 
+}
+
+
 @Component({
   selector: 'app-pie-chart',
   standalone: true,
@@ -13,7 +20,7 @@ import { AgChartOptions } from 'ag-charts-community';
   templateUrl: './pie-chart.component.html',
 })
 export class PieChartComponent implements OnInit {
-  datas: any[] = [];
+  datas: ChartData[] = [];
 
   private subscription: Subscription = new Subscription(); 
 

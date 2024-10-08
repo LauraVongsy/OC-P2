@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Observable, of, Subscription } from 'rxjs';
 import { olympic } from 'src/app/core/models/Olympic';
 import { participations } from 'src/app/core/models/Participation';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -13,9 +13,10 @@ import { AgChartOptions } from 'ag-charts-community';
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
 })
-export class LineChartComponent implements OnInit {
+export class LineChartComponent implements OnInit, OnDestroy {
   @Input() countryName: string | null = ''; // Accepter le pays comme Input
   datas: any[] = [];
+  private subscription: Subscription = new Subscription();  // Instance de Subscription
 
   public chartOptions: AgChartOptions = {
     data: [], // On initialise les données vides
@@ -36,17 +37,17 @@ export class LineChartComponent implements OnInit {
     ],
     axes: [
       {
-        type: 'number', // Modifiez ici si vous utilisez un graphique polaire
+        type: 'number',
         position: 'left',
         title: {
-          text: 'Medals', // Correctly formatted title object
+          text: 'Medals',
         },
       },
       {
-        type: 'category', // Modifiez ici si vous utilisez un graphique polaire
+        type: 'category',
         position: 'bottom',
         title: {
-          text: 'Dates', // Correctly formatted title object
+          text: 'Dates',
         },
       },
     ],
@@ -62,7 +63,8 @@ export class LineChartComponent implements OnInit {
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
 
-    this.olympics$.subscribe((olympics: olympic[]) => {
+    // Store subscription
+    const sub = this.olympics$.subscribe((olympics: olympic[]) => {
       if (this.countryName) {
         const selectedOlympic = olympics.find(o => o.country === this.countryName);
 
@@ -80,5 +82,11 @@ export class LineChartComponent implements OnInit {
         }
       }
     });
+
+    this.subscription.add(sub); // Add subscription to the instance
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
   }
 }

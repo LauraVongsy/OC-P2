@@ -1,69 +1,86 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 import { Observable, of } from 'rxjs';
 import { olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { PieController, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Chart } from 'chart.js';
 import { Router } from '@angular/router';
+import { AgCharts } from 'ag-charts-angular';
+import { AgChartOptions } from 'ag-charts-community';
 
 @Component({
   selector: 'app-pie-chart',
   standalone: true,
-  imports: [BaseChartDirective],
+  imports: [AgCharts],
   templateUrl: './pie-chart.component.html',
-  styleUrl: './pie-chart.component.scss'
 })
-
 export class PieChartComponent implements OnInit {
-  public pieChartLabels: string[] = [];
-  public pieChartDatasets: ChartDataset<'pie', number[]>[] = [];
-  public chartOptions: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false
-  }
+  datas: any[] = [];
+
+  public chartOptions: AgChartOptions = {
+    data: [], // On initialise les données vides
+
+    series: [
+      {
+        type: 'pie',
+        angleKey: 'countryMedals',
+        calloutLabelKey: 'countryName',
+        legendItemKey: 'countryName',
+        fills: ['#793d54', '#956064', '#b8cbe8', '#c0e0f2', '#9780a1', '#89a1dc'], 
+        tooltip: {
+          renderer(params) {
+            return {
+              title: '',
+              content: `<div style="background-color: #25828f; color: white; padding:10px; border-radius:5px;">🏅 ${Math.round(params.datum[params.angleKey])}</div>`,
+            };
+          }
+        },
+        listeners: {
+          nodeClick: (event) => this.onSelect(event),
+        },
+      },
+    ],
+
+    legend: {
+      enabled: false,
+    },
+  
+  };
 
   public olympics$: Observable<olympic[]> = of([]);
 
-  constructor(private olympicService: OlympicService , private router: Router) {}
+  constructor(
+    private olympicService: OlympicService,
+    private router: Router,
+   
+  ) {}
 
   ngOnInit(): void {
-   
-    Chart.register(PieController, ArcElement, Tooltip, Legend);
-
-  
     this.olympics$ = this.olympicService.getOlympics();
 
-    this.olympics$.subscribe(olympics => {
-      this.pieChartLabels = olympics.map(olympic => olympic.country);
+    this.olympics$.subscribe((olympics) => {
+      this.datas = olympics.map((olympic) => {
+        const totalMedals = olympic.participations.reduce(
+          (sum, participation) => sum + participation.medalsCount,
+          0
+        );
 
-      const medalCounts = olympics.map(olympic => {
-        return olympic.participations.reduce((sum, participation)=> {
-          return sum +(participation.medalsCount);
-        },0);
+        return {
+          countryName: olympic.country, 
+          countryMedals: totalMedals, 
+        };
       });
-      
-      this.pieChartDatasets = [
-        {
-          data: medalCounts,
-          backgroundColor: ['#956064', '#b8cbe8', '#c0e0f2', '#9780a1', '#89a1dc'],
-          label: `🏅`
-        }
-      ];
+
+      // Mettre à jour chartOptions avec un nouvel objet
+      this.chartOptions = {
+        ...this.chartOptions,
+        data: this.datas,
+      };
+
     });
   }
-  onChartClick(event: any): void {
-    // Accéder à l'élément actif
-    const activePoints = event.active;
-  
-    if (activePoints.length > 0) {
-      const index = activePoints[0].index; // Obtenir l'index du segment cliqué
-      const selectedCountry = this.pieChartLabels[index]; // Obtenir le pays correspondant à l'index
-      console.log("country", selectedCountry);
-  
 
-      this.router.navigate(['/country', selectedCountry]); 
-    }
+  onSelect(event: any): void {
+    const selectedCountry = event.datum.countryName; // Utilisation de countryName
+    console.log("Selected Country:", selectedCountry);
+    this.router.navigate(['/country', selectedCountry]); // Naviguer vers la page du pays
   }
 }

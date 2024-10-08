@@ -1,29 +1,50 @@
-# OlympicGamesStarter
+# **Olympic Medals Dashboard**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+## **Description**
 
-Don't forget to install your node_modules before starting (`npm install`).
+Cette application visualise les données des médailles olympiques par pays et par année à l'aide de graphiques interactifs. Elle permet de voir :
 
-## Development server
+-   Un graphique en camembert du total des médailles par pays.
+-   Un graphique en ligne du nombre de médailles gagnées par année pour chaque pays.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## **Technologies utilisées**
 
-## Build
+-   **Langages** : TypeScript, HTML, SCSS
+-   **Framework** : Angular
+-   **Librairie de graphiques** : AG Charts
+-   **Gestion des données** : RxJS
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## **Prérequis**
+- **Angular** v18
+-   **Node.js** v14 ou supérieur
+-   **Angular CLI** v12 ou supérieur
 
-## Where to start
+## **Installation**
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+1.  Cloner le projet :  
+      
+    `git clone https://github.com/LauraVongsy/OC-P2.git`
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+    
+2.  Installer les dépendances :
+    
+    `npm install` 
+    
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
+## **Utilisation**
 
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
+1.  Démarrer le serveur de développement :
+    
+    `npm start`  
+    ou 
+     `ng serve`
+    
+2.  Accéder à l'application dans votre navigateur :
+  
+    `http://localhost:4200` 
+    
 
-You're now ready to implement the requested features.
+## **Commandes NPM**
 
-Good luck!
+-   **`npm start`** : Démarre l'application en mode développement.
+-  **`npm build`** : Compile l'application pour le mode production.

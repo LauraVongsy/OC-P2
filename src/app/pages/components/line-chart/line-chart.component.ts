@@ -6,6 +6,11 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { AgCharts } from 'ag-charts-angular';
 import { AgChartOptions } from 'ag-charts-community';
 
+
+interface ChartData {
+  year: number; // Nom du pays
+  medalsCount: number; // Nombre total de médailles
+}
 @Component({
   selector: 'app-line-chart',
   standalone: true,
@@ -15,7 +20,7 @@ import { AgChartOptions } from 'ag-charts-community';
 })
 export class LineChartComponent implements OnInit, OnDestroy {
   @Input() countryName: string | null = ''; // Accepter le pays comme Input
-  datas: any[] = [];
+  datas: ChartData[] = [];
   private subscription: Subscription = new Subscription();  // Instance de Subscription
 
   public chartOptions: AgChartOptions = {

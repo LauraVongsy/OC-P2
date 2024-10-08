@@ -2,7 +2,7 @@
 <h1 class="country-title">{{olympicData?.country}}</h1>
 <div class="subtitles-container">
 <div class="number-of-entries">
-    <span>Number of entrie</span><br>
+    <span>Number of entries</span><br>
     <span class="results">{{olympicData?.participations?.length}}</span>
 </div>
 <div class="number-of-medals">
@@ -15,4 +15,5 @@
 </div>
 </div>
 <app-line-chart class="line-chart" [countryName]="countryName"></app-line-chart>
+<button class="return-btn" [routerLink]="['/']">Return</button>
 </div>

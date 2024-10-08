@@ -1,14 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { LineChartComponent } from '../components/line-chart/line-chart.component';
 
+
 @Component({
   selector: 'app-country',
   standalone: true,
-  imports: [LineChartComponent],
+  imports: [LineChartComponent, RouterModule],
   templateUrl: './country.component.html',
   styleUrl: './country.component.scss'
 })

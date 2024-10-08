@@ -1,7 +1,7 @@
-<canvas baseChart
-        [type]="'line'"
-        [datasets]="lineChartDatasets"
-        [labels]="lineChartLabels"
-        [options]="lineChartOptions"
-        >
-</canvas>
+<div class="line-chart-container">
+    <ag-charts
+      style="height: 100%; width: 100%;" 
+      [options]="chartOptions">
+    </ag-charts>
+  </div>
+  

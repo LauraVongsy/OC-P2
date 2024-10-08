@@ -5,15 +5,29 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { BaseChartDirective } from 'ng2-charts';
+
+// Import des composants standalone
+import { CountryComponent } from './pages/country/country.component';
 import { PieChartComponent } from './pages/components/pie-chart/pie-chart.component';
 import { LineChartComponent } from './pages/components/line-chart/line-chart.component';
-import { CountryComponent } from './pages/country/country.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent,NotFoundComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BaseChartDirective,CountryComponent,  PieChartComponent, LineChartComponent],
+  declarations: [
+    
+   
+    NotFoundComponent
+  ],
+  imports: [
+    AppComponent,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    HomeComponent,
+    CountryComponent,  
+    PieChartComponent,
+    LineChartComponent 
+  ],
   providers: [],
-  bootstrap: [AppComponent],
+ 
 })
 export class AppModule {}

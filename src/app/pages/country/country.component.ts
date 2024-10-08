@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { LineChartComponent } from '../components/line-chart/line-chart.component';
@@ -20,6 +20,8 @@ export class CountryComponent implements OnInit {
   public medalCount:number=0;
   public athleteCount:number=0;
 
+  private subscription: Subscription = new Subscription();
+
 
   constructor(private route: ActivatedRoute , private olympicService: OlympicService) {}
 
@@ -31,7 +33,7 @@ export class CountryComponent implements OnInit {
       
       // Charger les données olympiques et filtrer par pays
       this.olympics$ = this.olympicService.getOlympics();
-      this.olympics$.subscribe(olympics => {
+     const sub = this.olympics$.subscribe(olympics => {
         this.olympicData = olympics.find(olympic => olympic.country === this.countryName) || null;
         console.log("Olympic Data for country: ", this.olympicData);
       });
@@ -47,8 +49,11 @@ export class CountryComponent implements OnInit {
         },0);
         this.athleteCount= athletes
       }
-      
+      this.subscription.add(sub);
     });
     
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
   }
 }

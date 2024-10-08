@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Router } from '@angular/router';
@@ -14,6 +14,8 @@ import { AgChartOptions } from 'ag-charts-community';
 })
 export class PieChartComponent implements OnInit {
   datas: any[] = [];
+
+  private subscription: Subscription = new Subscription(); 
 
   public chartOptions: AgChartOptions = {
     data: [], // On initialise les données vides
@@ -56,7 +58,7 @@ export class PieChartComponent implements OnInit {
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
 
-    this.olympics$.subscribe((olympics) => {
+    const sub = this.olympics$.subscribe((olympics) => {
       this.datas = olympics.map((olympic) => {
         const totalMedals = olympic.participations.reduce(
           (sum, participation) => sum + participation.medalsCount,
@@ -76,6 +78,10 @@ export class PieChartComponent implements OnInit {
       };
 
     });
+    this.subscription.add(sub);
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
   }
 
   onSelect(event: any): void {

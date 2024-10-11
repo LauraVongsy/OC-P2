@@ -19,10 +19,7 @@ export class OlympicService {
       tap((value) => this.olympics$.next(value)),
       catchError((error: Error) => {
         console.error(error);
-        
-        // Utilisez le service Snackbar pour afficher un message d'erreur
         this.snackbarService.openSnackBar('Une erreur s\'est produite lors du chargement des données.');
-
         this.olympics$.next([]); // Réinitialise les données
         return throwError(() => error); // Rejette l'erreur pour la gestion ultérieure
       })

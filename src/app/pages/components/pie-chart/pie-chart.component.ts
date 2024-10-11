@@ -25,7 +25,7 @@ export class PieChartComponent implements OnInit {
   private subscription: Subscription = new Subscription(); 
 
   public chartOptions: AgChartOptions = {
-    data: [], // On initialise les données vides
+    data: [], // Initialisation des données vides
 
     series: [
       {
@@ -88,12 +88,11 @@ export class PieChartComponent implements OnInit {
     this.subscription.add(sub);
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
+    this.subscription.unsubscribe(); 
   }
 
   onSelect(event: any): void {
-    const selectedCountry = event.datum.countryName; // Utilisation de countryName
-    console.log("Selected Country:", selectedCountry);
-    this.router.navigate(['/country', selectedCountry]); // Naviguer vers la page du pays
+    const selectedCountry = event.datum.countryName; 
+    this.router.navigate(['/country', selectedCountry]); 
   }
 }

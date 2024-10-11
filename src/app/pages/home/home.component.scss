@@ -6,44 +6,42 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.dashboard-title{
-    color:white;
-    background-color:$petrol;
-    width: auto;
-    margin: auto;
-    text-align: center;
-    border-radius: 5px;
-    font-weight: normal;
-    padding:5px;
-}
-
-.subtitles-container{
-    width: 100%;
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: 50px auto 50px auto;
-    .number-of-jos, .number-of-countries{
-        border: 1px solid $petrol;
+    .dashboard-title{
+        color:white;
+        background-color:#25828f;
+        width: auto;
+        margin: auto;
+        text-align: center;
         border-radius: 5px;
-        padding:10px;
-        margin:0 10px 0 10px;
-        .results{
-            display: flex;
-            justify-content: center;
-            font-weight: bold;
-            margin-top: 5px;
+        font-weight: normal;
+        padding:5px;
+    }
+    .subtitles-container{
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin: 50px auto 50px auto;
+        .number-of-jos, .number-of-countries{
+            border: 1px solid #25828f;
+            border-radius: 5px;
+            padding:10px;
+            margin:0 10px 0 10px;
+            .results{
+                display: flex;
+                justify-content: center;
+                font-weight: bold;
+                margin-top: 5px;
+            }
         }
     }
-}
-
-app-pie-chart{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height:auto;
+    app-pie-chart{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height:auto;
+    }
 }

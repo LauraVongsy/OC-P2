@@ -28,7 +28,7 @@ export class CountryComponent implements OnInit {
   ngOnInit(): void {
     // Récupérer le pays depuis l'URL
     this.route.paramMap.subscribe(params => {
-      this.countryName = params.get('country'); // Obtenir le nom du pays
+      this.countryName = params.get('country'); 
       console.log("Selected Country: ", this.countryName);
       
       // Charger les données olympiques et filtrer par pays
@@ -54,6 +54,6 @@ export class CountryComponent implements OnInit {
     
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
+    this.subscription.unsubscribe(); 
   }
 }

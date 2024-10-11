@@ -6,15 +6,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
 
     .country-title{
         color:white;
-        background-color:$petrol;
-        width: 20%;
+        background-color:#25828f;
+        width: auto;
         margin: auto;
         text-align: center;
         border-radius: 5px;
         font-weight: normal;
+        padding:5px;
     }
     
     .subtitles-container{
@@ -25,7 +27,7 @@
         justify-content: center;
         margin: 50px auto 50px auto;
         .number-of-entries, .number-of-medals, .number-of-athletes{
-            border: 1px solid $petrol;
+            border: 1px solid #25828f;
             border-radius: 5px;
             padding:10px;
             margin:0 10px 0 10px;
@@ -50,7 +52,7 @@
         } 
     }
     .return-btn{
-        background-color: $petrol;
+        background-color: #25828f;
         color: white;
         padding:10px;
         margin-top: 30px;

@@ -8,8 +8,8 @@ import { AgChartOptions } from 'ag-charts-community';
 
 
 interface ChartData {
-  year: number; // Nom du pays
-  medalsCount: number; // Nombre total de médailles
+  year: number; 
+  medalsCount: number; 
 }
 @Component({
   selector: 'app-line-chart',
@@ -21,15 +21,15 @@ interface ChartData {
 export class LineChartComponent implements OnInit, OnDestroy {
   @Input() countryName: string | null = ''; // Accepter le pays comme Input
   datas: ChartData[] = [];
-  private subscription: Subscription = new Subscription();  // Instance de Subscription
+  private subscription: Subscription = new Subscription();  
 
   public chartOptions: AgChartOptions = {
-    data: [], // On initialise les données vides
+    data: [], 
     series: [
       {
         type: 'line',
-        xKey: 'year', // Clé pour l'axe X
-        yKey: 'medalsCount', // Clé pour l'axe Y
+        xKey: 'year', // axe X
+        yKey: 'medalsCount', // axe Y
         tooltip: {
           renderer: (params) => {
             return {
@@ -67,14 +67,11 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-
-    // Store subscription
     const sub = this.olympics$.subscribe((olympics: olympic[]) => {
       if (this.countryName) {
         const selectedOlympic = olympics.find(o => o.country === this.countryName);
 
         if (selectedOlympic) {
-          // Extraire les données pour le graphique
           this.datas = selectedOlympic.participations.map((participation: participations) => ({
             year: participation.year, 
             medalsCount: participation.medalsCount, 
@@ -88,10 +85,10 @@ export class LineChartComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscription.add(sub); // Add subscription to the instance
+    this.subscription.add(sub); //Souscription à sub
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe(); // Unsubscribe to avoid memory leaks
+    this.subscription.unsubscribe(); 
   }
 }

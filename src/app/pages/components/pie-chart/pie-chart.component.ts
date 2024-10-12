@@ -30,16 +30,29 @@ export class PieChartComponent implements OnInit {
     series: [
       {
         type: 'pie',
-        angleKey: 'countryMedals',
-        calloutLabelKey: 'countryName',
-        legendItemKey: 'countryName',
+        angleKey: 'countryMedals', //Gère les parts du diagramme
+        calloutLabelKey: 'countryName',//Gère les labels du diagramme       
+        calloutLine: {length: 30, strokeWidth: 2}, // Gère les traits des labels      
         fills: ['#793d54', '#956064', '#b8cbe8', '#c0e0f2', '#9780a1', '#89a1dc'], 
-        tooltip: {
-          renderer(params) {
-            return {
-              title: '',
-              content: `<div style="background-color: #25828f; color: white; padding:10px; border-radius:5px;">🏅 ${Math.round(params.datum[params.angleKey])}</div>`,
-            };
+        highlightStyle: {
+          item: {
+            strokeWidth: 0, // Supprime la bordure en survol
+            stroke: undefined, 
+          }
+        },
+        tooltip: {// Gère les données au hover
+          renderer(params) {            
+            return `<div class="ag-chart-tooltip" style="position: relative; width: 100px; text-align: center;">
+              <div class="ag-chart-tooltip-title" style="background-color: #25828f; color: white; padding-top: 5px; ">
+              ${params.datum[params.calloutLabelKey!]}
+              </div>
+              <div class="ag-chart-tooltip-content" style="background-color: #25828f; color: white;">
+              🏅 ${Math.round(params.datum[params.angleKey])}
+              </div>
+              <div style="width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 10px solid #25828f; position: absolute;
+              bottom: -10px; left: 50%; transform: translateX(-50%);"></div>
+              </div>
+            `
           }
         },
         listeners: {
@@ -47,7 +60,6 @@ export class PieChartComponent implements OnInit {
         },
       },
     ],
-
     legend: {
       enabled: false,
     },

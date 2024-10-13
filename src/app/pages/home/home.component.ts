@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { PieChartComponent } from '../components/pie-chart/pie-chart.component';
+import { PieChartComponent } from '../../components/pie-chart/pie-chart.component';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   })
   this.subscription.add(sub);
 }
+
 ngOnDestroy(): void {
   this.subscription.unsubscribe(); 
 }

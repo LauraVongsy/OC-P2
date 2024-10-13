@@ -10,13 +10,13 @@ import { SnackbarService } from './snackbar.service';
 })
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<olympic[]>([]);
+  private olympics$ = new BehaviorSubject<olympic[]>([]); // Permet d'émettre les données quand elles changent
 
   constructor(private http: HttpClient, private snackbarService: SnackbarService) {}
 
   loadInitialData() {
-    return this.http.get<olympic[]>(this.olympicUrl).pipe(
-      tap((value) => this.olympics$.next(value)),
+    return this.http.get<olympic[]>(this.olympicUrl).pipe(// ici pipe permet d'utiliser des opérateurs rxJs
+      tap((value) => this.olympics$.next(value)),// tap permet d'exécuter une fonction pour chaque valeur émise par l'observable
       catchError((error: Error) => {
         console.error(error);
         this.snackbarService.openSnackBar('Une erreur s\'est produite lors du chargement des données.');

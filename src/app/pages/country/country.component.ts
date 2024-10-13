@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { LineChartComponent } from '../components/line-chart/line-chart.component';
+import { LineChartComponent } from '../../components/line-chart/line-chart.component';
 
 
 @Component({
@@ -29,19 +29,16 @@ export class CountryComponent implements OnInit {
     // Récupérer le pays depuis l'URL
     this.route.paramMap.subscribe(params => {
       this.countryName = params.get('country'); 
-      console.log("Selected Country: ", this.countryName);
       
       // Charger les données olympiques et filtrer par pays
       this.olympics$ = this.olympicService.getOlympics();
      const sub = this.olympics$.subscribe(olympics => {
         this.olympicData = olympics.find(olympic => olympic.country === this.countryName) || null;
-        console.log("Olympic Data for country: ", this.olympicData);
       });
       if(this.olympicData){
         const medals = this.olympicData.participations.reduce((sum, participation)=> {
           return sum +(participation.medalsCount);
         },0);
-        console.log("medalcount", medals)
         this.medalCount= medals
 
         const athletes = this.olympicData.participations.reduce((sum, participation)=> {
